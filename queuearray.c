@@ -1,5 +1,5 @@
 #include <stdio.h>
-int q[100],front,rear,n,i,choice,value;
+int q[200],front,rear,n,i,choice,value;
 void enqueue(void);
 void dequeue(void);
 void display(void);
