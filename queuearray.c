@@ -69,7 +69,7 @@ void dequeue(){   // remove elements from the queue
 }
 
 void display(){          // display the queue
-    if(rear>=front-1){
+    if(rear>=front){
         for(i=front;i<=rear;i++){
             printf("%d ",q[i]);
         }
