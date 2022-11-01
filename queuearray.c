@@ -63,13 +63,13 @@ void dequeue(){   // remove elements from the queue
     }
 
     else{
-        printf("The value to be dequeued is: %d", q[front]);
+        printf("The value dequeued is: %d", q[front]);
         front++;
     }
 }
 
 void display(){          // display the queue
-    if(rear>front){
+    if(rear>=front-1){
         for(i=front;i<=rear;i++){
             printf("%d ",q[i]);
         }
