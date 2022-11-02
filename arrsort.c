@@ -21,7 +21,7 @@ int main(){
 			}
         }
     }
-    printf("The array elemnts are: ");
+    printf("The array elements are: ");
 
     for(i=0;i<n;i++){
         printf("%d",arr[i]);
