@@ -205,7 +205,7 @@ int main(){
 			case 8:
 				delend();
 				break;                               
-            case 0:
+                        case 0:
 				printf("Exit");
 				break;
 			deault:
