@@ -119,10 +119,11 @@ void del(){
     temp=head;
     t2=head->next;
     if(pos==1){
-        head=head->next;
+        delf();  
     }
 
     if(pos==2){
+        printf("%d is deleted",t2->value);
         head->next=t2->next;
 
     }
@@ -132,13 +133,52 @@ void del(){
             t2=t2->next;
             count++;
         }
+        printf("%d is deleted",temp->value);
         temp->next=t2->next;
     }
+}
+
+void delf(){
+    if(head==NULL){
+        printf("Linked List is empty");
+    }
+    else if(head->next==NULL){
+        printf("%d is deleted",head->value); 
+        head=NULL;       
+    }      
+    else{
+    node *temp;
+    printf("%d is deleted",head->value);
+    temp=head->next;
+    head=temp;
+    }
+}
+
+void delend(){
+    if(head==NULL){
+        printf("Linked List is empty");
+    }
+    else if(head->next==NULL){
+        printf("%d is deleted",head->value); 
+        head=NULL;       
+    } 
+    else{
+        node *temp;
+        temp=head;
+        while(temp->next!=NULL){
+            temp=temp->next;
+        }
+        printf("%d is deleted",temp->value);
+        temp->next=NULL;
+    }   
 }
 int main(){
     int choice;
     do{
-        printf("\nEnter the Choice\n 1.Insert at the end\n 2.Insert at the beginning\n 3.Insert at a given Position\n 4.Display the the Linked List\n 5.Check whether the given element is present \n 6.Delete a node\n 0.Exit\n");
+        printf("\nEnter the Choice\n 1.Insert at the end\n 2.Insert at the beginning\n ");
+        printf("3.Insert at a given Position\n 4.Display the the Linked List\n ");
+        printf("5.Check whether the given element is present \n 6.Delete node from a position\n ");
+        printf("7.Delete node at the beginning\n 8.Delete node from the end\n 0.Exit\n");
         scanf("%d",&choice);
         switch(choice){
             case 1:
@@ -159,6 +199,12 @@ int main(){
 			case 6:
 				del();
 				break; 
+			case 7:
+				delf();
+				break;   
+			case 8:
+				delend();
+				break;                               
             case 0:
 				printf("Exit");
 				break;
