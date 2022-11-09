@@ -165,10 +165,10 @@ void delend(){
     else{
         node *temp;
         temp=head;
-        while(temp->next!=NULL){
+        while(temp->next->next!=NULL){
             temp=temp->next;
         }
-        printf("%d is deleted",temp->value);
+        printf("%d is deleted",temp->next->value);
         temp->next=NULL;
     }   
 }
@@ -181,7 +181,7 @@ int main(){
         printf("7.Delete node at the beginning\n 8.Delete node from the end\n 0.Exit\n");
         scanf("%d",&choice);
         switch(choice){
-            case 1:
+            		case 1:
 				insertend();
 				break;
 			case 2:
