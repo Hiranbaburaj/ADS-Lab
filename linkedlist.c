@@ -118,11 +118,14 @@ void del(){
     scanf("%d",&pos);
     temp=head;
     t2=head->next;
-    if(pos==1){
+    if(head==NULL){
+        printf("Linked List is empty");
+    }
+    else if(pos==1){
         delf();  
     }
 
-    if(pos==2){
+    else if(pos==2){
         printf("%d is deleted",t2->value);
         head->next=t2->next;
 
