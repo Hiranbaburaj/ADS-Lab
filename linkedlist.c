@@ -153,12 +153,18 @@ void del(){
     }
     else{
         while(pos!=count){
-            temp=temp->next;
             t2=t2->next;
+            temp=temp->next;
             count++;
         }
-        printf("%d is deleted",temp->value);
-        temp->next=t2->next;
+        if(t2->next==NULL){
+            printf("%d is deleted",t2->value);
+            temp->next=NULL;
+        }
+        else{
+            printf("%d is deleted",t2->value);
+            temp->next=t2->next;
+        }
     }
 }
 
