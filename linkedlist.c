@@ -86,10 +86,15 @@ void insertpos(){
 }
 
 void display(){
-    node*temp=head;
-    while(temp!=NULL){
-        printf("%d ",temp->value);
-        temp=temp->next;
+    if(head==NULL){
+        printf("Linked List is empty");
+    }
+    else{
+        node *temp=head;
+        while(temp!=NULL){
+            printf("%d ",temp->value);
+            temp=temp->next;
+        }
     }
 }
 
@@ -109,6 +114,22 @@ void search(){
     if(temp==NULL){
         printf("Value not found\n");
     }  
+}
+
+void delf(){
+    if(head==NULL){
+        printf("Linked List is empty");
+    }
+    else if(head->next==NULL){
+        printf("%d is deleted",head->value); 
+        head=NULL;       
+    }      
+    else{
+    node *temp;
+    printf("%d is deleted",head->value);
+    temp=head->next;
+    head=temp;
+    }
 }
 
 void del(){
@@ -141,21 +162,6 @@ void del(){
     }
 }
 
-void delf(){
-    if(head==NULL){
-        printf("Linked List is empty");
-    }
-    else if(head->next==NULL){
-        printf("%d is deleted",head->value); 
-        head=NULL;       
-    }      
-    else{
-    node *temp;
-    printf("%d is deleted",head->value);
-    temp=head->next;
-    head=temp;
-    }
-}
 
 void delend(){
     if(head==NULL){
