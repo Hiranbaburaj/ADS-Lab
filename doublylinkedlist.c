@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int  size=0;
+
 struct node{
     int value;
     struct node *next;
@@ -9,9 +11,10 @@ struct node{
 
 typedef struct node node;
 node *head;
+node *rear;
 
 void insertend(){
-    node *temp, *t2;
+    node *temp ;
     int data;
     printf("Enter the data you want to enter at the end: ");
     scanf("%d",&data);
@@ -22,83 +25,146 @@ void insertend(){
         head=temp;
         head->next=NULL;
         head->prev=NULL;
+        size++;
+    }
+
+    else if(head->next == NULL){
+        rear=temp;
+        head->next=rear;
+        rear->prev=head;
+        rear->next=NULL;
+        size++;
     }
 
     else{
-        t2=head;
-        while(t2->next!=NULL){
-            t2=t2->next;
-        }
-        t2->next=temp;
-        temp->prev=t2;
-        temp->next=NULL;
+        rear->next=temp;
+        temp->prev=rear;
+        rear=temp;
+        rear->next=NULL;
+        size++;
     }
 }
 
 void insertfr(){
     node *temp;
     int data;
-    printf("Enter the value to insert at the beginning: ");
+    printf("Enter the data you want to enter at the front: ");
     scanf("%d",&data);
     temp=(node*)malloc(sizeof(node));
-    temp->value=data;   
+    temp->value=data;
 
-    if(head == NULL){
+    if((head == NULL)&&(rear == NULL)){
         head=temp;
         head->next=NULL;
         head->prev=NULL;
+        size++;
+    }
+
+    else if(head->next == NULL) {
+        temp->next=head;
+        temp->prev=NULL;
+        head->prev=temp;
+        rear=head;
+        head=temp;
+        size++;
     }
 
     else{
         temp->next=head;
+        temp->prev=NULL;
         head->prev=temp;
         head=temp;
-    }     
+        size++;
+    }
 }
 
 void insertpos(){
-    node *temp,*t2;
-    int data,pos,count=2;
-    printf("Enter the position to insert data: ");
-    scanf("%d",&pos);    
-    printf("Enter the value to insert at a given position: ");
-    scanf("%d",&data);
-    temp=(node*)malloc(sizeof(node));
-    temp->value=data;  
-    if(head==NULL){
-    printf("Linked list is Empty");        
-    }   
 
-    else if(pos==1){
-        temp->next=head;
-        head->prev=temp;
-        head=temp;        
+    if((head == NULL)&&(rear == NULL)){
+        printf("Linked List is empty");
     }
-    
-    else{
-        t2=head;
-        while(t2->next!=NULL){
-            if(pos==count){
-                temp->next=t2->next;
-                (t2->next)->prev=temp;
-                temp->prev=t2;
-                t2->next=temp;
-                
-                break;
+
+    else
+    {
+        node *temp , *t2;
+        int data, position , count = 2 ;
+        printf("Enter the position you want to enter the data : ");
+        scanf("%d",&position);
+
+
+        if((position>size)||(position<=0)){
+        printf("Please Enter a Valid Position \n");
+        }
+
+        else{
+        printf("Enter the data you want to enter at the given position: ");
+        scanf("%d",&data);
+        temp=(node*)malloc(sizeof(node));
+        temp->value=data;
+        if(position==1){
+                if(head->next == NULL) {
+                temp->next=head;
+                temp->prev=NULL;
+                head->prev=temp;
+                rear=head;
+                head=temp;
+                size++;
             }
+
             else{
-                t2=t2->next;
-                count++;
+                temp->next=head;
+                temp->prev=NULL;
+                head->prev=temp;
+                head=temp;
+                size++;
             }
         }
-    }    
+
+        else{
+                t2=head;
+                while(t2->next!=NULL){
+                    if(position==count){
+                        if(t2->next!=rear){
+                            temp->next=t2->next;
+                            (t2->next)->prev=temp;
+                            t2->next=temp;
+                            temp->prev=t2;
+                            size++;
+                            break;
+                        }
+                        else{
+                            temp->next=rear;
+                            rear->prev=temp;
+                            t2->next=temp;
+                            temp->prev=t2;
+                            size++;
+                            break;
+                        }
+                    }
+
+                    else{
+                        t2=t2->next;
+                        count++;
+                    }
+                }
+            }
+        }
+    }
 }
 
-void display(){
+void dispf(){
     node*temp=head;
     while(temp!=NULL){
         printf("%d ",temp->value);
         temp=temp->next;
+    }
+}
+
+void dispb(){
+    node*temp=rear;
+    while(temp!=NULL){
+        printf("%d ",temp->value);
+        temp=temp->prev;
     }
 }
 
@@ -120,80 +186,141 @@ void search(){
     }  
 }
 
-void del(){
-    node *temp,*t2;
-    int pos,count=2;
-    printf("Enter the position of the node you want to delete: ");  
-    scanf("%d",&pos);
-    temp=head;
-    t2=head->next;
-    if(head==NULL){
-        printf("Linked List is empty");
-    }
-    else if(pos==1){
-        delf();  
-    }
-
-    else if(pos==2){
-        printf("%d is deleted",t2->value);
-        head->next=t2->next;
-
-    }
-    else{
-        while(pos!=count){
-            temp=temp->next;
-            t2=t2->next;
-            count++;
-        }
-        printf("%d is deleted",temp->value);
-        temp->next=t2->next;
-    }
-}
-
 void delf(){
-    if(head==NULL){
+    node *temp;
+    if((head == NULL)){
         printf("Linked List is empty");
     }
-    else if(head->next==NULL){
-        printf("%d is deleted",head->value); 
-        head=NULL;       
-    }      
+    
+    else if(head->next == NULL){
+        printf("%d is Deleted",head->value);
+        temp=head;
+        head=NULL;
+        rear=NULL;
+        free(temp);
+        size--;
+    }
+
     else{
-    node *temp;
-    printf("%d is deleted",head->value);
-    temp=head->next;
-    head=temp;
+        printf("%d is Deleted",head->value);
+        temp=head;
+        head=head->next;
+        head->prev=NULL;
+        free(temp);
+        size--;
     }
 }
 
 void delend(){
-    if(head==NULL){
+    node *temp;
+    if(head == NULL){
         printf("Linked List is empty");
     }
-    else if(head->next==NULL){
-        printf("%d is deleted",head->value); 
-        head=NULL;       
-    } 
-    else{
-        node *temp;
+
+    else if(head->next == NULL){
+        printf("%d is Deleted",head->value);
         temp=head;
-        while(temp->next->next!=NULL){
-            temp=temp->next;
-        }
-        printf("%d is deleted",temp->next->value);
-        temp->next=NULL;
-    }   
+        head=NULL;
+        rear=NULL;
+        free(temp);
+        size--;
+    }
+
+    else if(head->next == rear){
+        printf("%d is Deleted",rear->value);
+        head->next=NULL;
+        temp=rear;
+        rear=NULL;
+        free(temp);
+        size--;
+    }
+
+    else{
+        printf("%d is Deleted",rear->value);
+        temp=rear;
+        rear=rear->prev;
+        rear->next=NULL;
+        free(temp);
+        size--;
+    }
 }
+
+void delpos(){
+    if(head == NULL){
+        printf("Linked List is empty");
+    }
+
+    else{
+        node *temp , *t2;
+        int position , count = 2;
+        printf("Enter the position of the data you want to delete : ");
+        scanf("%d",&position);
+        if((position>size)||(position<=0)){
+            printf("Please Enter a Valid Position \n");
+        }
+
+        else{
+        if (position == 1){
+            delf();
+        }
+
+        else if (position == 2){
+            if(head->next == rear){
+                printf("%d is Deleted",rear->value);
+                head->next=NULL;
+                temp=rear;
+                rear=NULL;
+                free(temp);
+                size--;
+            }
+
+            else{
+                temp=head->next;
+                printf("%d is Deleted",temp->value);
+                head->next=temp->next;
+                (temp->next)->prev=head;
+                free(temp);
+                size--;
+            }
+        }
+
+        else{
+            temp = head;
+            t2 = head->next;
+                while(position!=count){
+                    t2=t2->next;
+                    temp=temp->next;
+                    count++;
+                }
+                if(t2->next!=NULL){
+                    printf("%d is Deleted",t2->value);
+                    temp->next=t2->next;
+                    (t2->next)->prev=temp;
+                    free(t2);
+                    size--;
+                }
+
+            else{
+                printf("%d is Deleted",t2->value);
+                temp->next=NULL;
+                free(t2);
+                size--;
+            }
+        }
+        }
+    }
+}
+
 int main(){
     int choice;
     do{
         printf("\nEnter the Choice\n 1.Insert at the end\n 2.Insert at the beginning\n ");
-        printf("3.Insert at a given Position\n 4.Display the the Linked List\n ");
-        printf("5.Check whether the given element is present \n 6.Delete node from a position\n ");
-        printf("7.Delete node at the beginning\n 8.Delete node from the end\n 0.Exit\n");
+        printf("3.Insert at a given Position\n 4.Display the Linked List in Forward Direction\n 5.Display the Linked List in Reverse Direction\n ");
+        printf("6.Check whether the given element is present \n 7.Delete node at the beginning\n ");
+        printf("8.Delete node from the end\n 9.Delete node from a position\n 0.Exit\n");
         scanf("%d",&choice);
         switch(choice){
-            		case 1:
+            case 1:
 				insertend();
 				break;
 			case 2:
@@ -203,21 +330,24 @@ int main(){
 				insertpos();
 				break;
 			case 4:
-				display();
+				dispf();
 				break;
 			case 5:
-				search();
+				dispb();
 				break;
 			case 6:
-				del();
+				search();
 				break; 
 			case 7:
 				delf();
 				break;   
 			case 8:
 				delend();
-				break;                               
-                        case 0:
+				break;  
+			case 9:
+				delpos();
+				break;                              
+            case 0:
 				printf("Exit");
 				break;
 			deault:
