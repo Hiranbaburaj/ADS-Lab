@@ -39,14 +39,18 @@ void dequeue(){
         printf("Linked List is empty");
     }
     else if(head->next==NULL){
+        node *temp;
+        temp=head;
         printf("%d is deleted",head->value); 
-        head=NULL;       
+        head=NULL;
+        free(temp);
     }      
     else{
     node *temp;
     printf("%d is deleted",head->value);
-    temp=head->next;
-    head=temp;
+    temp=head;
+    head=head->next;
+    free(temp);
     }
 }
 
@@ -73,19 +77,23 @@ int main(){
             		case 1:
 				enqueue();
 				break;
+
 			case 2:
 				dequeue();
 				break;
+
 			case 3:
 				peek();
 				break;
+
 			case 4:
 				display();
 				break;
                               
-                        case 0:
+           		case 0:
 				printf("Exit");
 				break;
+
 			deault:
 				printf("Invalid option ! Try Again..");
         }
