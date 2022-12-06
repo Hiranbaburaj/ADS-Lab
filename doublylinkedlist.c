@@ -305,8 +305,8 @@ void delpos(){
                 temp->next=NULL;
                 free(t2);
                 size--;
+            	}
             }
-        }
         }
     }
 }
@@ -320,7 +320,7 @@ int main(){
         printf("8.Delete node from the end\n 9.Delete node from a position\n 0.Exit\n");
         scanf("%d",&choice);
         switch(choice){
-            case 1:
+            		case 1:
 				insertend();
 				break;
 			case 2:
@@ -347,7 +347,7 @@ int main(){
 			case 9:
 				delpos();
 				break;                              
-            case 0:
+            		case 0:
 				printf("Exit");
 				break;
 			deault:
