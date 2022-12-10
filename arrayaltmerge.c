@@ -1,5 +1,5 @@
 #include<stdio.h>
-void main()
+int main()
 {
 int a[10],i,n,b[10],merge[20],x,i1;
 printf("enter the size of the array: \n");
@@ -17,7 +17,7 @@ for(i=0;i<n;i++)
 printf("%d ",a[i]);
 }
 
-printf("enter the array elements \n");
+printf("\nenter the array elements \n");
 for(i=0;i<n;i++)
 
 {
@@ -43,4 +43,5 @@ printf("\n The merged array: \n");
 for(int i = 0; i < x; i++)
 printf("%d ", merge[i]);
 
+return 0;
 }
