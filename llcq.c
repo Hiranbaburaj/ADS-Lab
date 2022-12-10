@@ -15,7 +15,7 @@ node *rear;
 void enqueue(){
     node *temp, *t2;
     int data;
-    printf("Enter the data you want to enter at the end: ");
+    printf("Enter the data you want to enter : ");
     scanf("%d",&data);
     temp=(node*)malloc(sizeof(node));
     temp->value=data;
@@ -34,7 +34,7 @@ void enqueue(){
 
 void dequeue(){
     if(head==NULL){
-        printf("Linked List is empty");
+        printf("Queue is empty");
     }
     else if(head->next==head){
         node *temp;
@@ -67,8 +67,7 @@ else{
         temp=temp->next;
     }
 	while(temp!=rear->next);
-
-}
+    }
 }
 void peek(){
 	printf("%d",head->value);
@@ -103,7 +102,7 @@ int main(){
 				printf("Exit");
 				break;
 
-			deault:
+			default:
 				printf("Invalid option ! Try Again..");
         }
     }
