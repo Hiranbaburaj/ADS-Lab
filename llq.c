@@ -94,7 +94,7 @@ int main(){
 				printf("Exit");
 				break;
 
-			deault:
+			default:
 				printf("Invalid option ! Try Again..");
         }
     }
