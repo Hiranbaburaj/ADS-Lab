@@ -36,7 +36,7 @@ void enqueue(){
 
 void dequeue(){
     if(head==NULL){
-        printf("Linked List is empty");
+        printf("Queue is empty");
     }
     else if(head->next==NULL){
         node *temp;
@@ -90,7 +90,7 @@ int main(){
 				display();
 				break;
                               
-           		case 0:
+            		case 0:
 				printf("Exit");
 				break;
 
