@@ -39,26 +39,23 @@ void pop(){
         printf("Linked List is empty");
     }
     else if(head->next==NULL){
-        printf("%d is deleted",head->value); 
-        head=NULL;       
+        printf("%d is deleted",head->value);
+        node *temp;
+        temp=head;
+        head=NULL;
+        free(temp);
     } 
     else{
-        node *temp;
+        node *temp , *t2;
         temp=head;
         while(temp->next->next!=NULL){
             temp=temp->next;
         }
         printf("%d is deleted",temp->next->value);
+        t2=temp->next;
         temp->next=NULL;
+        free(t2);
     }   
-}
-
-void display(){
-    node*temp=head;
-    while(temp!=NULL){
-        printf("%d ",temp->value);
-        temp=temp->next;
-    }
 }
 
 void peek(){
@@ -66,6 +63,14 @@ void peek(){
     while(temp!=NULL){
 	if(temp->next==NULL){
         printf("%d ",temp->value);}
+        temp=temp->next;
+    }
+}
+
+void display(){
+    node*temp=head;
+    while(temp!=NULL){
+        printf("%d ",temp->value);
         temp=temp->next;
     }
 }
@@ -89,12 +94,11 @@ int main(){
 				break;
 			case 4:
 				display();
-				break;
-                              
-                        case 0:
+				break;                  
+            		case 0:
 				printf("Exit");
 				break;
-			deault:
+			default:
 				printf("Invalid option ! Try Again..");
         }
     }
