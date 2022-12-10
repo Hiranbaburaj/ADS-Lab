@@ -14,7 +14,7 @@ node *head;
 void push(){
     node *temp, *t2;
     int data;
-    printf("Enter the data you want to enter at the end: ");
+    printf("Enter the data you want to enter at the top: ");
     scanf("%d",&data);
     temp=(node*)malloc(sizeof(node));
     temp->value=data;
