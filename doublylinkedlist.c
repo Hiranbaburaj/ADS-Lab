@@ -1,7 +1,8 @@
+//doubly linked list
 #include <stdio.h>
 #include <stdlib.h>
 
-int  size=0;
+int  size=0; 
 
 struct node{
     int value;
@@ -53,7 +54,7 @@ void insertfr(){
     temp=(node*)malloc(sizeof(node));
     temp->value=data;
 
-    if((head == NULL)&&(rear == NULL)){
+    if(head == NULL){
         head=temp;
         head->next=NULL;
         head->prev=NULL;
@@ -80,47 +81,31 @@ void insertfr(){
 
 void insertpos(){
 
-    if((head == NULL)&&(rear == NULL)){
+    if(head == NULL){
         printf("Linked List is empty");
     }
 
     else
     {
-        node *temp , *t2;
         int data, position , count = 2 ;
         printf("Enter the position you want to enter the data : ");
         scanf("%d",&position);
 
-
         if((position>size)||(position<=0)){
-        printf("Please Enter a Valid Position \n");
+            printf("Please Enter a Valid Position \n");
         }
 
         else{
-        printf("Enter the data you want to enter at the given position: ");
-        scanf("%d",&data);
-        temp=(node*)malloc(sizeof(node));
-        temp->value=data;
         if(position==1){
-                if(head->next == NULL) {
-                temp->next=head;
-                temp->prev=NULL;
-                head->prev=temp;
-                rear=head;
-                head=temp;
-                size++;
-            }
-
-            else{
-                temp->next=head;
-                temp->prev=NULL;
-                head->prev=temp;
-                head=temp;
-                size++;
-            }
+            insertfr();
         }
 
         else{
+                node *temp , *t2;
+                printf("Enter the data you want to enter at the given position: ");
+                scanf("%d",&data);
+                temp=(node*)malloc(sizeof(node));
+                temp->value=data;
                 t2=head;
                 while(t2->next!=NULL){
                     if(position==count){
@@ -153,18 +138,33 @@ void insertpos(){
 }
 
 void dispf(){
-    node*temp=head;
-    while(temp!=NULL){
-        printf("%d ",temp->value);
-        temp=temp->next;
+    if(head==NULL){
+        printf("Linked List is empty");
+    }
+    else{    
+        node*temp=head;
+        while(temp!=NULL){
+            printf("%d ",temp->value);
+            temp=temp->next;
+        }
     }
 }
 
 void dispb(){
-    node*temp=rear;
-    while(temp!=NULL){
-        printf("%d ",temp->value);
-        temp=temp->prev;
+    if(head==NULL){
+        printf("Linked List is empty");
+    }
+    else{
+        if(head->next == NULL){
+            printf("%d",head->value);
+        }
+        else{
+            node*temp=rear;
+            while(temp!=NULL){
+                printf("%d ",temp->value);
+                temp=temp->prev;
+            }
+        }
     }
 }
 
@@ -211,7 +211,7 @@ void delf(){
     }
 }
 
-void delend(){
+void delend(){            
     node *temp;
     if(head == NULL){
         printf("Linked List is empty");
@@ -291,21 +291,20 @@ void delpos(){
                     t2=t2->next;
                     temp=temp->next;
                     count++;
-                }
+                    }
                 if(t2->next!=NULL){
                     printf("%d is Deleted",t2->value);
                     temp->next=t2->next;
                     (t2->next)->prev=temp;
                     free(t2);
                     size--;
-                }
-
-            else{
-                printf("%d is Deleted",t2->value);
-                temp->next=NULL;
-                free(t2);
-                size--;
-            	}
+                    }
+                else{
+                    printf("%d is Deleted",t2->value);
+                    temp->next=NULL;
+                    free(t2);
+                    size--;
+                    }
             }
         }
     }
@@ -315,7 +314,8 @@ int main(){
     int choice;
     do{
         printf("\nEnter the Choice\n 1.Insert at the end\n 2.Insert at the beginning\n ");
-        printf("3.Insert at a given Position\n 4.Display the Linked List in Forward Direction\n 5.Display the Linked List in Reverse Direction\n ");
+        printf("3.Insert at a given Position\n 4.Display the Linked List in Forward Direction\n ");
+        printf("5.Display the Linked List in Reverse Direction\n ");
         printf("6.Check whether the given element is present \n 7.Delete node at the beginning\n ");
         printf("8.Delete node from the end\n 9.Delete node from a position\n 0.Exit\n");
         scanf("%d",&choice);
@@ -350,7 +350,7 @@ int main(){
             		case 0:
 				printf("Exit");
 				break;
-			deault:
+			default:
 				printf("Invalid option ! Try Again..");
         }
     }
