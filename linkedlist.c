@@ -191,7 +191,7 @@ int main(){
     int choice;
     do{
         printf("\nEnter the Choice\n 1.Insert at the end\n 2.Insert at the beginning\n ");
-        printf("3.Insert at a given Position\n 4.Display the the Linked List\n ");
+        printf("3.Insert at a given Position\n 4.Display the Linked List\n ");
         printf("5.Check whether the given element is present \n 6.Delete node from a position\n ");
         printf("7.Delete node at the beginning\n 8.Delete node from the end\n 0.Exit\n");
         scanf("%d",&choice);
@@ -220,10 +220,10 @@ int main(){
 			case 8:
 				delend();
 				break;                               
-                        case 0:
+            		case 0:
 				printf("Exit");
 				break;
-			deault:
+			default:
 				printf("Invalid option ! Try Again..");
         }
     }
