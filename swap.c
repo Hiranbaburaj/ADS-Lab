@@ -1,36 +1,54 @@
-#include <stdio.h>
-int arr[100],value,i,j,n,temp,x,y;
-
-int main(){
-    printf("Enter the size of the array: ");
-    scanf("%d",&n);
-    for(i=0;i<n;i++){
-        printf("Enter array element %d: ",i);
-        scanf("%d",&value);
-        arr[i]=value;  
+//swap 2 arrays
+#include<stdio.h>
+int main()
+{
+int a[10],i,n,b[10],x;
+printf("Enter the size of the array: ");
+scanf("%d",&n);
+printf("\nEnter array 1 elements: ");
+for(i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);
     }
-    printf("The array elements are: ");
 
-    for(i=0;i<n;i++){
-        printf("%d",arr[i]);
+printf("\nEnter array 2 elements: ");
+for(i=0;i<n;i++)
+    {
+        scanf("%d",&b[i]);
     }
-printf("\nEnter the indexes you want to swap the elements of\n");
 
-printf("Enter 1st index :");
-    scanf("%d",&x);
-printf("Enter 2nd index :");
-    scanf("%d",&y);
-
-
-if((x > n)||(y > n)){
-	printf("Given index(s) do not exist");}
-else{
-	j=arr[x];
-	arr[x]=arr[y];
-	arr[y]=j;
-	}
-    for(i=0;i<n;i++){
-        printf("%d",arr[i]);
+printf("\nArray 1 elements before Swapping: ");
+for(i=0;i<n;i++)
+    {
+        printf("%d ",a[i]);
     }
-    return 0;
+
+printf("\nArray 2 elements before Swapping: ");
+
+for(i=0;i<n;i++)
+    {
+        printf("%d ",b[i]);
+    }
+
+for(i=0;i<n;i++)
+{
+    x=a[i];
+    a[i]=b[i];
+    b[i]=x;
+}
+
+printf("\nArray 1 elements after Swapping: ");
+for(i=0;i<n;i++)
+    {
+        printf("%d ",a[i]);
+    }
+
+printf("\nArray 2 elements after Swapping: ");
+
+for(i=0;i<n;i++)
+    {
+        printf("%d ",b[i]);
+    }
+
+return 0;
 }
