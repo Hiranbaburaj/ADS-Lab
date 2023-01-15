@@ -1,4 +1,3 @@
-//bst
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -69,11 +68,11 @@ void preorder(node *rt){
     else{
         printf("%d ",rt->value);
         if(rt->l!=NULL){
-            inorder(rt->l);
+            preorder(rt->l);
         }
         
         if(rt->r!=NULL){
-            inorder(rt->r);
+            preorder(rt->r);
         }
     }
 }
@@ -85,37 +84,77 @@ void postorder(node *rt){
     }
     else{
         if(rt->l!=NULL){
-            inorder(rt->l);
+            postorder(rt->l);
         }
         
         if(rt->r!=NULL){
-            inorder(rt->r);
+            postorder(rt->r);
         }
         printf("%d ",rt->value);
     }
 }
 
+int search(node *rt,int dt){
+    while(rt!=NULL){
+        if((rt->value)==dt){
+            return 1;
+            break;
+        }
+        else if(dt > (rt->value)){
+            rt=rt->r;
+        }
+        else{
+            rt=rt->l;
+        }
+    }
+    return 0;
+}
+
 void main(){
-    int ch;
+    int ch,sr;
     do{
-        printf("Enter the choice: ");
+        printf("\nEnter the choice: ");
         scanf("%d",&ch);
         switch(ch){
             case 1:
                 insert();
                 break;
+
             case 2:
                 inorder(root);
                 break;
+
             case 3:
                 preorder(root);
-                break;   
+                break; 
+
             case 4:
                 postorder(root);
-                break;               
+                break;
+
+            case 5:
+                if(root==NULL){
+                    printf("BST is Empty");
+                }
+
+                else{
+                    int data;
+                    printf("Enter the data you want to search: ");
+                    scanf("%d",&data);
+                    sr=search(root,data);
+                    if(sr==1){
+                        printf("\nValue present in bst\n");
+                    }
+                    else{
+                        printf("\nValue not present\n");
+                    }
+                }
+                break;
+
             case 0:
                 printf("Exit");
                 break;
+
             default:
                 printf("Invalid choice");
         }
