@@ -110,6 +110,34 @@ int search(node *rt,int dt){
     return 0;
 }
 
+int delete(node *rt,node *prev){
+    if(((rt->l)==0) && ((rt->l)==0)){
+        prev->l=NULL;
+        prev->r=NULL;
+    }
+}
+
+int del(node *rt,int dt){
+    node *prev;
+    while(rt!=NULL){
+        if((rt->value)==dt){
+            delete(rt,prev);
+            return 1;
+            break;
+        }
+        else if(dt > (rt->value)){
+            prev=rt;
+            rt=rt->r;
+        }
+        else{
+            prev=rt;
+            rt=rt->l;
+        }
+    }
+    return 0;
+}  
+
+
 void main(){
     int ch,sr;
     do{
@@ -148,6 +176,25 @@ void main(){
                     else{
                         printf("\nValue not present\n");
                     }
+                }
+                break;
+
+            case 6:
+                if(root==NULL){
+                    printf("BST is Empty");
+                }
+
+                else{
+                    int data;
+                    printf("Enter the data you want to delete: ");
+                    scanf("%d",&data);
+                    sr=del(root,data);
+                    if(sr==1){
+                        printf("\nValue deleted\n");
+                    } 
+                    else{
+                        printf("\nValue Not present\n");
+                    }                   
                 }
                 break;
 
