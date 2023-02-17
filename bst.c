@@ -97,12 +97,28 @@ node* delete(node *nod,int val){
     return nod;
 }
 
+node* search(node *nod, int val){
+    if(nod==NULL)
+    printf("\nNot FOUND!\n"); 
+    else if(val==(nod->data))
+    {printf("Value Present in BST");}
+    else{
+        if (val < (nod->data)){
+            search(nod->l,val);
+        }
+        else{
+            search(nod->r,val);
+        }
+        }
+        return nod;
+}
+
 int main(){
     node *root=NULL;
     int choice;
     int value;
     do{
-        printf("\nEnter the Choice\n1.Insert\n2.Inorder Traversal\n3.Preorder Traversal\n4.Postorder Traversal\n5.Delete\n0.Exit\n");
+        printf("\nEnter the Choice\n1.Insert\n2.Inorder Traversal\n3.Preorder Traversal\n4.Postorder Traversal\n5.Delete\n6.Search\n0.Exit\n");
         scanf("%d",&choice);
         switch (choice)
         {
@@ -129,6 +145,15 @@ int main(){
             scanf("%d",&value);
             root=delete(root,value);
             break;
+
+        case 6:
+            if(root==NULL)
+            printf("BST IS EMPTY");
+            else{
+            printf("\nEnter the Value to search: ");
+            scanf("%d",&value);
+            root=search(root,value);
+            break;}
 
         default:
             break;
