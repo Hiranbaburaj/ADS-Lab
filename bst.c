@@ -1,185 +1,162 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-typedef struct node{
+struct node
+{
     int data;
-    struct node *l,*r;
-}Node;
+    struct node *l, *r;    
+};
 
-Node *root=NULL;
+typedef struct node node;
 
-Node* insert(Node *node, int val){
-    Node *temp;
-    if(node==NULL){
-        temp=(Node*)malloc(sizeof(Node));
+node* insert(node *nod,int val){
+    node *temp;
+    if (nod==NULL){
+        temp=(node*)malloc(sizeof(node));
         temp->data=val;
-        temp->l=temp->r=NULL;
-        node=temp;
-        return node;
+        temp->l=NULL;
+        temp->r=NULL;
+        nod=temp;
+        return nod;
     }
 
-    if(val <(node->data))
-        node->l=insert(node->l,val);
-    else
-        node->r=insert(node->r,val);
-    return node;
-}
-
-void inorder(Node *node){
-    if (node==NULL)
-        return;
-
-    inorder(node->l);
-    printf("%d ",node->data);
-    inorder(node->r);
-}
-
-void preorder(Node *node){
-    if (node==NULL)
-        return;
-
-    printf("%d ",node->data);
-    preorder(node->l);
-    preorder(node->r);
-}
-
-void postorder(Node *node){
-    if (node==NULL)
-        return;
-
-    postorder(node->l);
-    postorder(node->r);
-    printf("%d ",node->data);
-}
-
-Node* inords(Node* node){
-    if (node==NULL)
-        return NULL;
-    if(node->l!=NULL){
-        return(inords(node->l));
-    }    
-    return node;
-}
-
-Node* delete(Node *node, int val){
-
-    Node *temp;
-
-    if (node==NULL)
-        return NULL;
-    
-    if(val<(node->data))
-        node->l=delete(node->l,val);
-
-    else if(val>(node->data))
-        node->r=delete(node->r,val);
-
+    if (val < (nod->data)){
+        nod->l=insert(nod->l,val);
+    }
     else{
-        if((node->l==NULL)&&(node->r==NULL)){
-            free(node);
+        nod->r=insert(nod->r,val);
+    }
+    return nod;
+}
+
+void inorder(node *nod){
+    if(nod==NULL){
+        return;
+    }
+    inorder(nod->l);
+    printf("%d ",nod->data);
+    inorder(nod->r);
+}
+
+void preorder(node *nod){
+    if(nod==NULL){
+        return;
+    }
+    printf("%d ",nod->data);    
+    preorder(nod->l);
+    preorder(nod->r);
+}
+
+void postorder(node *nod){
+    if(nod==NULL){
+        return;
+    }
+    postorder(nod->l);
+    postorder(nod->r);
+    printf("%d ",nod->data);
+}
+
+node* inords(node *nod){
+    if(nod==NULL)return NULL;
+    if(nod->l!=NULL){
+        return(inords(nod->l));
+    }
+    return nod;
+}
+
+node* delete(node *nod,int val){
+    node *temp;
+    if(nod==NULL)return NULL;
+    if (val < (nod->data)){
+        nod->l=delete(nod->l,val);
+    }
+    else if (val > (nod->data)){
+        nod->r=delete(nod->r,val);
+    }
+    else{
+        if((nod->l==NULL)&&(nod->r==NULL)){
+            free(nod);
             return NULL;
         }
-
-        else if((node->l==NULL)||(node->r==NULL)){
-
-            if(node->l!=NULL){
-                temp=node->l;
+        else if((nod->l==NULL)||(nod->r==NULL)){
+            if(nod->l!=NULL){
+                temp=nod->l;
             }
             else{
-                temp=node->r;
+                temp=nod->r;
             }
-            free(node);
+            free(nod);
             return temp;
         }
-
         else{
-            temp=inords(node->r);
-            node->data=temp->data;
-            node->r=delete(node->r,temp->data);
+            temp=inords(nod->r);
+            nod->data=temp->data;
+            nod->r=delete(nod->r,temp->data);
         }
     }
-
+    return nod;
 }
 
-Node* search(Node *node, int val){
-    Node  *temp;
-    temp = node;
-    if(temp==NULL)
-        printf("Value not present");
-    
+node* search(node *nod, int val){
+    if(nod==NULL)
+    printf("\nNot FOUND!\n"); 
+    else if(val==(nod->data))
+    {printf("Value Present in BST");}
     else{
-        if(temp->data==val){
-            printf("Value Present in BST");
-            return temp;}
-        else{
-            if(val<(temp->data))
-                search(temp->l,val);
-            else
-                search(temp->r,val);
+        if (val < (nod->data)){
+            search(nod->l,val);
         }
-    }
-    return temp;
+        else{
+            search(nod->r,val);
+        }
+        }
+        return nod;
 }
 
 int main(){
-    int choice,value;
+    node *root=NULL;
+    int choice;
+    int value;
     do{
-        printf("\n1.Insert");
-        printf("\n2.Inorder Traversal");
-        printf("\n3.Preorder Traversal");
-        printf("\n4.Postorder Traversal");
-        printf("\n5.Delete");
-        printf("\n6.Search");
-        printf("\n0.Exit");
-        printf("\nEnter the choice: ");
+        printf("\nEnter the Choice\n1.Insert\n2.Inorder Traversal\n3.Preorder Traversal\n4.Postorder Traversal\n5.Delete\n6.Search\n0.Exit\n");
         scanf("%d",&choice);
-        switch(choice){
+        switch (choice)
+        {
+        case 1:
+            printf("\nEnter the Value to insert: ");
+            scanf("%d",&value);
+            root=insert(root,value);
+            break;
+        
+        case 2:
+            inorder(root);
+            break;
 
-            case 1:
-                printf("\nEnter the Value to insert to BST: ");
-                scanf("%d",&value);
-                root=insert(root,value);
-                break;
+        case 3:
+            preorder(root);
+            break;
 
-            case 2:
-                inorder(root);
-                break;
-            
-            case 3:
-                preorder(root);
-                break;
-            
-            case 4:
-                postorder(root);
-                break;
+        case 4:
+            postorder(root);
+            break;
 
-            case 5:
-                if(root==NULL)
-                    printf("\nBST is empty\n");
+        case 5:
+            printf("\nEnter the Value to delete: ");
+            scanf("%d",&value);
+            root=delete(root,value);
+            break;
 
-                else
-                    {printf("\nEnter the Value to be Deleted: ");
-                    scanf("%d",&value);
-                    root=delete(root,value);}
-                break;            
+        case 6:
+            if(root==NULL)
+            printf("BST IS EMPTY");
+            else{
+            printf("\nEnter the Value to search: ");
+            scanf("%d",&value);
+            root=search(root,value);
+            break;}
 
-            case 6:
-                if(root==NULL)
-                    printf("\nBST is empty\n");
-
-                else
-                    {printf("\nEnter the Value to search: ");
-                    scanf("%d",&value);
-                    root=search(root,value);}
-                break;            
-
-            case 0:
-                printf("Exit");
-                break;
-
-            default:
-                printf("\nInvalid option. Try again!!!\n");
-                break;
+        default:
+            break;
         }
     }
     while(choice!=0);
